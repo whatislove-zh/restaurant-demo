@@ -23,7 +23,7 @@ export const Profile = () => {
   };
 
   return (
-    <>
+    <Box sx={{display:"flex", justifyContent:"center", flexDirection:"column"}} >
       <Paper
         sx={{
           height: 350,
@@ -50,7 +50,13 @@ export const Profile = () => {
           <Typography variant="h6">{email}</Typography>
         </Box>
       </Paper>
-      <Button onClick={logoutHandler}>Logout</Button>
-    </>
+          <Button
+            sx={{ mx: "auto", my: "30px" }}
+            variant="outlined"
+            onClick={logoutHandler}
+          >
+            Logout
+          </Button>
+    </Box>
   );
 };
