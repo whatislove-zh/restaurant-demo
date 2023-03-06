@@ -30,17 +30,20 @@ export const Modal = () => {
         sx={{
           background: "#30343f",
           width: "280px",
-          
+
           borderRadius: "50px",
           display: "flex",
           alignItems: "center",
-          justifyContent:"center",
+          justifyContent: "center",
           position: "relative",
         }}
       >
-        <Typography sx={{color:"white", px:"20px", my:"50px"}}>
+        <Typography sx={{ color: "white", px: "20px", my: "50px" }}>
           Чтобы добавить товар в корзину, Вам нужно{" "}
-          <Link to="/signup" style={{ textDecoration: "none", color:"rgb(62, 62, 255)"}}>
+          <Link
+            to="/signup"
+            style={{ textDecoration: "none", color: "rgb(62, 62, 255)" }}
+          >
             Sign Up
           </Link>
         </Typography>

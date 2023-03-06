@@ -15,13 +15,12 @@ export const Profile = () => {
     }
   }, [isAuth, navigate]);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const logoutHandler = () => {
-    dispatch(removeUser())
-    localStorage.removeItem('user');
-  }
-
+    dispatch(removeUser());
+    localStorage.removeItem("user");
+  };
 
   return (
     <>

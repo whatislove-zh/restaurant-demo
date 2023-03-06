@@ -7,7 +7,7 @@ import { Modal } from "./Modal";
 export const Layout = () => {
   return (
     <>
-    <Modal />
+      <Modal />
       <Container>
         <Header />
         <Box sx={{ minHeight: "75vh" }}>

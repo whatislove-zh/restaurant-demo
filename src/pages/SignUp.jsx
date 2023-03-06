@@ -41,7 +41,9 @@ export const SignUp = () => {
         );
         navigate("/profile");
       })
-      .catch((err) => {alert(err.message)});
+      .catch((err) => {
+        alert(err.message);
+      });
   };
 
   return (

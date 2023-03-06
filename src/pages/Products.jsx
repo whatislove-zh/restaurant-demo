@@ -9,10 +9,11 @@ import {
 } from "../store/features/getFoods/getFoodsSlice";
 
 export const Products = () => {
-  
   const search = useSelector((state) => state.controls.search);
   const sortRules = useSelector((state) => state.controls.rules);
-  const bestFood = useSelector((state) => sortFood(state, { sortRules, search }));
+  const bestFood = useSelector((state) =>
+    sortFood(state, { sortRules, search })
+  );
   const { status, error } = useSelector(selectBestFoodInfo);
 
   return (

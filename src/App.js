@@ -25,9 +25,6 @@ function App() {
     }
   }, [status, dispatch]);
 
-  
-
-
   return (
     <>
       <Routes>
