@@ -1,15 +1,22 @@
 import { TextField, Box, Button, Typography } from "@mui/material";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { setUser } from "../store/features/user/userSlice";
+import { setUser, userInfo } from "../store/features/user/userSlice";
 
 export const Login = () => {
+  const { isAuth } = useSelector(userInfo);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/profile");
+    }
+  }, [isAuth, navigate]);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const emailHendler = (e) => {
     setEmail(e.target.value);
@@ -24,6 +31,14 @@ export const Login = () => {
       .then(({ user }) => {
         dispatch(
           setUser({
+            email: user.email,
+            id: user.uid,
+            token: user.accessToken,
+          })
+        );
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
             email: user.email,
             id: user.uid,
             token: user.accessToken,
@@ -78,7 +93,6 @@ export const Login = () => {
       <Typography>
         Don't have an account?
         <Link to="/signup" style={{ textDecoration: "none" }}>
-          {" "}
           Sign Up
         </Link>
       </Typography>

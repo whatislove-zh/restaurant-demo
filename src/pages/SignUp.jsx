@@ -1,16 +1,24 @@
 import { TextField, Box, Button, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../store/features/user/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { userInfo } from "../store/features/user/userSlice";
 
 export const SignUp = () => {
+  const { isAuth } = useSelector(userInfo);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isAuth) {
+      navigate("/profile");
+    }
+  }, [isAuth, navigate]);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const emailHendler = (e) => {
     setEmail(e.target.value);
@@ -33,7 +41,7 @@ export const SignUp = () => {
         );
         navigate("/profile");
       })
-      .catch(console.error);
+      .catch((err) => {alert(err.message)});
   };
 
   return (

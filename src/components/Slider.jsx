@@ -9,7 +9,7 @@ const ControlsButton = styled(Button)({
   top: "40%",
   background: "rgba(0, 0, 0, 0.5)",
   "&:hover": { background: "rgba(0, 0, 0, 0.7)" },
-  zIndex: "1000",
+  zIndex: "100",
   color: "white",
 });
 

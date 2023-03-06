@@ -1,8 +1,28 @@
-import { Paper, Box, Avatar, Typography } from "@mui/material";
+import { Paper, Box, Avatar, Typography, Button } from "@mui/material";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { removeUser, userInfo } from "../store/features/user/userSlice";
 
 const headImg = "https://source.unsplash.com/random";
 
 export const Profile = () => {
+  const { isAuth, email } = useSelector(userInfo);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isAuth) {
+      navigate("/signup");
+    }
+  }, [isAuth, navigate]);
+
+  const dispatch = useDispatch()
+
+  const logoutHandler = () => {
+    dispatch(removeUser())
+    localStorage.removeItem('user');
+  }
+
+
   return (
     <>
       <Paper
@@ -28,12 +48,10 @@ export const Profile = () => {
           }}
         >
           <Avatar sx={{ width: "100px", height: "100px" }} src="userAvatar" />
-          <Typography variant="h6">userName</Typography>
-          <Typography variant="body2" sx={{ fontSize: "12px", m: "15px" }}>
-            userSummary
-          </Typography>
+          <Typography variant="h6">{email}</Typography>
         </Box>
       </Paper>
+      <Button onClick={logoutHandler}>Logout</Button>
     </>
   );
 };
