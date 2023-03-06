@@ -4,8 +4,8 @@ import {
   CardMedia,
   IconButton,
   Typography,
+  Box,
 } from "@mui/material";
-import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
 import { removeItem } from "../store/features/shopingCart/shopingCartSlice";
@@ -25,7 +25,7 @@ export const ShopingCartCard = (props) => {
         <CardMedia
           component="img"
           alt={name}
-          height="200px"
+          height="150px"
           image={img}
           sx={{ cursor: "pointer", maxWidth: "280px" }}
         />
@@ -37,7 +37,7 @@ export const ShopingCartCard = (props) => {
           }}
         >
           <Box>
-            <Typography variant="h4">{name}</Typography>
+            <Typography variant="h5">{name}</Typography>
             <Typography variant="body2">{dsc}</Typography>
           </Box>
           <Box
