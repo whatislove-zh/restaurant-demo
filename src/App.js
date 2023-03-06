@@ -10,6 +10,7 @@ import { ShopingCart } from "./pages/ShopingCart";
 import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
 import { SignUp } from "./pages/SignUp";
+import { Profile } from "./pages/Profile";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="shoping-cart" element={<ShopingCart />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<SignUp />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
