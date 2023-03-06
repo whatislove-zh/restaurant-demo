@@ -7,14 +7,16 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../store/features/shopingCart/shopingCartSlice";
 
 export const FoodCard = (props) => {
   const { name, img, dsc, price } = props.item;
 
-  
+  const dispatch = useDispatch();
 
   const addToCart = () => {
-    
+    dispatch(addProduct(props.item));
   };
 
   return (
