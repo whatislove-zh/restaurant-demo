@@ -6,18 +6,19 @@ import {
   Typography,
   Toolbar,
 } from "@mui/material";
-import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+
 import { Link } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useSelector } from "react-redux";
+import { userInfo } from "../store/features/user/userSlice";
 
 export const Header = () => {
+  const { isAuth } = useSelector(userInfo);
+
   return (
     <AppBar position="static" sx={{ background: "none", mb: "30px" }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box>
-          <IconButton size="large" edge="start" sx={{ color: "#000000" }}>
-            <MenuRoundedIcon sx={{ fontSize: "25px" }} />
-          </IconButton>
           <IconButton sx={{ padding: 0 }}>
             <Typography>Logo</Typography>
           </IconButton>
@@ -32,12 +33,18 @@ export const Header = () => {
           <Link to="/" style={{ textDecoration: "none" }}>
             <Button>Home</Button>
           </Link>
-          <Link to="products" style={{ textDecoration: "none" }}>
+          <Link to="/products" style={{ textDecoration: "none" }}>
             <Button>Products</Button>
           </Link>
-          <Link to="signup" style={{ textDecoration: "none" }}>
-            <Button>Sign up</Button>
-          </Link>
+          {isAuth ? (
+            <Link to="/profile" style={{ textDecoration: "none" }}>
+              <Button>Profile</Button>
+            </Link>
+          ) : (
+            <Link to="/signup" style={{ textDecoration: "none" }}>
+              <Button>Sign Up</Button>
+            </Link>
+          )}
         </Box>
       </Toolbar>
     </AppBar>
