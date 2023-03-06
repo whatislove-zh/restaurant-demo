@@ -35,8 +35,8 @@ export const Header = () => {
           <Link to="products" style={{ textDecoration: "none" }}>
             <Button>Products</Button>
           </Link>
-          <Link to="login" style={{ textDecoration: "none" }}>
-            <Button>Login</Button>
+          <Link to="signup" style={{ textDecoration: "none" }}>
+            <Button>Sign up</Button>
           </Link>
         </Box>
       </Toolbar>

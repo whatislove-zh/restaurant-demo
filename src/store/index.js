@@ -4,12 +4,14 @@ import * as api from "./apiConfig";
 import { bestFoodReduser } from "./features/getFoods/getFoodsSlice";
 import { shopingCartReducer } from "./features/shopingCart/shopingCartSlice";
 import { controlsReducer } from "./features/sortingRules/rulesSlice";
+import { userReduser } from "./features/user/userSlice";
 
 export const store = configureStore({
   reducer: {
     bestFood: bestFoodReduser,
     shopingCart: shopingCartReducer,
     controls: controlsReducer,
+    user: userReduser,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>

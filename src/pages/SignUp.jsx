@@ -1,13 +1,14 @@
 import { TextField, Box, Button, Typography } from "@mui/material";
-import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 import { useState } from "react";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
 import { setUser } from "../store/features/user/userSlice";
+import { Link, useNavigate } from "react-router-dom";
 
-export const Login = () => {
+export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,10 +18,11 @@ export const Login = () => {
   const passwordHendler = (e) => {
     setPassword(e.target.value);
   };
-  const loginHelper = (e) => {
+
+  const signupHandler = (e) => {
     e.preventDefault();
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
         dispatch(
           setUser({
@@ -33,6 +35,7 @@ export const Login = () => {
       })
       .catch(console.error);
   };
+
   return (
     <Box
       sx={{
@@ -45,7 +48,6 @@ export const Login = () => {
     >
       <Box
         component="form"
-        onSubmit={loginHelper}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -71,15 +73,14 @@ export const Login = () => {
           onChange={passwordHendler}
         />
 
-        <Button variant="outlined" type="submit">
-          Login
+        <Button onClick={signupHandler} variant="outlined" type="submit">
+          Sign Up
         </Button>
       </Box>
       <Typography>
-        Don't have an account?
-        <Link to="/signup" style={{ textDecoration: "none" }}>
-          {" "}
-          Sign Up
+        Already have an account?
+        <Link to="/login" style={{ textDecoration: "none" }}>
+          Login
         </Link>
       </Typography>
     </Box>

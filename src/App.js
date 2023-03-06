@@ -9,6 +9,7 @@ import { Products } from "./pages/Products";
 import { ShopingCart } from "./pages/ShopingCart";
 import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
+import { SignUp } from "./pages/SignUp";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="products" element={<Products />} />
           <Route path="shoping-cart" element={<ShopingCart />} />
           <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
