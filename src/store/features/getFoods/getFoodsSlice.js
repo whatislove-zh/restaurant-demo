@@ -43,4 +43,20 @@ export const selectBestFoodInfo = (state) => ({
   error: state.bestFood.error,
 });
 
-
+export const sortFood = (state, { sortRules = null, search = "" }) => {
+  if (!sortRules || sortRules === "review") {
+    return state.bestFood.list.filter((item) =>
+      item.name.toLowerCase().includes(search.toLowerCase())
+    );
+  } else if (sortRules === "low") {
+    return state.bestFood.list
+      .slice()
+      .sort((a, b) => a.price - b.price)
+      .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+  } else if (sortRules === "hight") {
+    return state.bestFood.list
+      .slice()
+      .sort((a, b) => b.price - a.price)
+      .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()));
+  }
+};

@@ -3,11 +3,13 @@ import axios from "axios";
 import * as api from "./apiConfig";
 import { bestFoodReduser } from "./features/getFoods/getFoodsSlice";
 import { shopingCartReducer } from "./features/shopingCart/shopingCartSlice";
+import { controlsReducer } from "./features/sortingRules/rulesSlice";
 
 export const store = configureStore({
   reducer: {
     bestFood: bestFoodReduser,
     shopingCart: shopingCartReducer,
+    controls: controlsReducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
