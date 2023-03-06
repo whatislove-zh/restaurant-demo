@@ -1,4 +1,8 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loadFood, selectBestFoodInfo } from "./store/features/getFoods/getFoodsSlice";
+
 import { Layout } from "./components/Layout";
 import { Home } from "./pages/Home";
 import { Products } from "./pages/Products";
@@ -6,7 +10,16 @@ import { ShopingCart } from "./pages/ShopingCart";
 import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
 
+
 function App() {
+  const { /*qty,*/ status } = useSelector(selectBestFoodInfo);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(loadFood("BEST_FOOD"));
+    }
+  }, [status, dispatch]);
   return (
     <>
       <Routes>
