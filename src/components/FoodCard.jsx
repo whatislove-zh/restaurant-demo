@@ -7,16 +7,24 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setModal } from "../store/features/modalShow/modalSlice";
 import { addProduct } from "../store/features/shopingCart/shopingCartSlice";
+import { userInfo } from "../store/features/user/userSlice";
 
 export const FoodCard = (props) => {
   const { name, img, dsc, price } = props.item;
 
+  const { isAuth } = useSelector(userInfo);
+
   const dispatch = useDispatch();
 
   const addToCart = () => {
-    dispatch(addProduct(props.item));
+    if (isAuth) {
+      dispatch(addProduct(props.item));
+    } else {
+      dispatch(setModal("flex"));
+    }
   };
 
   return (
