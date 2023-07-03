@@ -11,7 +11,17 @@ export const Home = () => {
   return (
     <>
       {status === "rejected" && <Typography>{error.message}</Typography>}
-      {status === "loading" && <Typography>Loading...</Typography>}
+      {status === "loading" && (
+        <>
+          <Typography width="320px" align="center" margin="auto">
+            The first download may take longer than usual, due to the fact that
+            the database is on a free server that shuts down if there are no
+            requests for a long time and it needs time to start
+          </Typography>
+
+          <Typography>Loading...</Typography>
+        </>
+      )}
       {status === "received" && (
         <>
           <Typography variant="h3" align="center" sx={{ m: "20px" }}>
