@@ -19,9 +19,11 @@ export const Header = () => {
     <AppBar position="static" sx={{ background: "none", mb: "30px" }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box>
-          <IconButton sx={{ padding: 0 }}>
-            <Typography>Logo</Typography>
-          </IconButton>
+          <Link to="/">
+            <IconButton sx={{ padding: "10px" }}>
+              <Typography>Logo</Typography>
+            </IconButton>
+          </Link>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Link
