@@ -1,53 +1,96 @@
 import { TextField, Box, Button, Typography } from "@mui/material";
-import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  getAuth,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setUser, userInfo } from "../store/features/user/userSlice";
+import { useForm } from "react-hook-form";
 
-export const Login = () => {
+export const Login = ({ isSignUp = false }) => {
+  const {
+    register,
+    handleSubmit,
+
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onBlur",
+  });
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const [authError, setAuthError] = useState(null);
   const { isAuth } = useSelector(userInfo);
+
   const navigate = useNavigate();
+
   useEffect(() => {
     if (isAuth) {
       navigate("/profile");
     }
   }, [isAuth, navigate]);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
 
-  const emailHendler = (e) => {
-    setEmail(e.target.value);
-  };
-  const passwordHendler = (e) => {
-    setPassword(e.target.value);
-  };
-  const loginHelper = (e) => {
-    e.preventDefault();
+  const loginHelper = (data) => {
+    const { email, password } = data;
+
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        dispatch(
-          setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.accessToken,
-          })
-        );
-        localStorage.setItem(
-          "user",
-          JSON.stringify({
-            email: user.email,
-            id: user.uid,
-            token: user.accessToken,
-          })
-        );
-        navigate("/profile");
-      })
-      .catch(console.error);
+
+    if (isSignUp === false) {
+      signInWithEmailAndPassword(auth, email, password)
+        .then(({ user }) => {
+          dispatch(
+            setUser({
+              email: user.email,
+              id: user.uid,
+              token: user.accessToken,
+            })
+          );
+
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              email: user.email,
+              id: user.uid,
+              token: user.accessToken,
+            })
+          );
+          navigate("/profile");
+        })
+        .catch((err) => {
+          setAuthError(err.message);
+        });
+    } else {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(({ user }) => {
+          dispatch(
+            setUser({
+              email: user.email,
+              id: user.uid,
+              token: user.accessToken,
+            })
+          );
+
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              email: user.email,
+              id: user.uid,
+              token: user.accessToken,
+            })
+          );
+          navigate("/profile");
+        })
+        .catch((err) => {
+          setAuthError(err.message);
+        });
+    }
   };
+
+  console.log("re");
   return (
     <Box
       sx={{
@@ -60,7 +103,7 @@ export const Login = () => {
     >
       <Box
         component="form"
-        onSubmit={loginHelper}
+        onSubmit={handleSubmit(loginHelper)}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -69,33 +112,59 @@ export const Login = () => {
           margin: "25px",
         }}
       >
+        {authError && <Typography>{authError}</Typography>}
+
         <TextField
           sx={{ m: "15px" }}
           type="email"
           fullWidth
           placeholder="email"
-          value={email}
-          onChange={emailHendler}
+          helperText={errors?.email ? errors.email.message : ""}
+          error={errors?.email ? true : false}
+          {...register("email", {
+            required: "Enter your email",
+            pattern: {
+              value: /^[\w-.-]+@([\w-]+\.)+[\w-]{2,4}$/,
+              message: "Enter valid email",
+            },
+          })}
         />
         <TextField
           sx={{ m: "15px" }}
           type="password"
           fullWidth
           placeholder="password"
-          value={password}
-          onChange={passwordHendler}
+          helperText={errors?.password ? errors.password.message : ""}
+          error={errors?.password ? true : false}
+          {...register("password", {
+            required: "Enter your Password",
+            minLength: {
+              value: 5,
+              message: "Input at least five (5) characters",
+            },
+          })}
         />
 
-        <Button variant="outlined" type="submit">
-          Login
+        <Button variant="outlined" type="submit" disabled={!isValid}>
+          {isSignUp ? "Sign Up" : "Login"}
         </Button>
       </Box>
-      <Typography>
-        Don't have an account?
-        <Link to="/signup" style={{ textDecoration: "none" }}>
-          Sign Up
-        </Link>
-      </Typography>
+
+      {isSignUp ? (
+        <Typography>
+          Already have an account?
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            Login
+          </Link>
+        </Typography>
+      ) : (
+        <Typography>
+          Don't have an account?
+          <Link to="/signup" style={{ textDecoration: "none" }}>
+            Sign Up
+          </Link>
+        </Typography>
+      )}
     </Box>
   );
 };
