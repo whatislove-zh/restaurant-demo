@@ -12,7 +12,6 @@ import { Products } from "./pages/Products";
 import { ShopingCart } from "./pages/ShopingCart";
 import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
-import { SignUp } from "./pages/SignUp";
 import { Profile } from "./pages/Profile";
 
 function App() {
@@ -32,8 +31,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="products" element={<Products />} />
           <Route path="shoping-cart" element={<ShopingCart />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<SignUp />} />
+          <Route path="login" element={<Login/>} />
+          <Route path="signup" element={<Login isSignUp={true} />} />
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="*" element={<NotFound />} />
