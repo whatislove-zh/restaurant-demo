@@ -19,7 +19,7 @@ export const Products = () => {
   return (
     <>
       <Controls />
-      {status === "rejected" && <Typography>{error}</Typography>}
+      {status === "rejected" && <Typography>{error.message}</Typography>}
       {status === "loading" && <Typography>Loading...</Typography>}
       {status === "received" && (
         <>
