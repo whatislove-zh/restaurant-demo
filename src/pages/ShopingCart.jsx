@@ -1,10 +1,4 @@
-import {
-  Typography,
-  Box,
-  Button,
-  Backdrop,
-  CircularProgress,
-} from "@mui/material";
+import { Typography, Box, Button, Backdrop } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ShopingCartCard } from "../components/ShopingCartCard";

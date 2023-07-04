@@ -8,7 +8,7 @@ import {
   Alert,
   Snackbar,
 } from "@mui/material";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../store/features/modalShow/modalSlice";
 import { addProduct } from "../store/features/shopingCart/shopingCartSlice";
@@ -70,20 +70,16 @@ export const FoodCard = ({ item }) => {
         </Card>
       </Grid>
       <Snackbar
-              open={open}
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-              autoHideDuration={3000}
-              onClose={handleClose}
-              message="Success"
-            >
-              <Alert
-                onClose={handleClose}
-                severity="success"
-                sx={{ width: "100%" }}
-              >
-                Success! {name} is added to cart =)
-              </Alert>
-            </Snackbar>
+        open={open}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        message="Success"
+      >
+        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+          Success! {name} is added to cart =)
+        </Alert>
+      </Snackbar>
     </>
   );
 };
