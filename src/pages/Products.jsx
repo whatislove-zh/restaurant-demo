@@ -7,6 +7,7 @@ import {
   selectBestFoodInfo,
   sortFood,
 } from "../store/features/getFoods/getFoodsSlice";
+import Loading from "../components/Loading";
 
 export const Products = () => {
   const search = useSelector((state) => state.controls.search);
@@ -20,7 +21,7 @@ export const Products = () => {
     <>
       <Controls />
       {status === "rejected" && <Typography>{error.message}</Typography>}
-      {status === "loading" && <Typography>Loading...</Typography>}
+      {status === "loading" && <Loading />}
       {status === "received" && (
         <>
           <Grid container justifyContent="space-around">
