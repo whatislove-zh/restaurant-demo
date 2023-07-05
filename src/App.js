@@ -14,15 +14,32 @@ import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
 import { Profile } from "./pages/Profile";
 
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "./firebase";
+import { userInfo } from "./store/features/user/userSlice";
+
 function App() {
   const { status } = useSelector(selectBestFoodInfo);
   const dispatch = useDispatch();
+  const shoppingCart = useSelector((state) => state.shopingCart.cartList);
+  const { email } = useSelector(userInfo);
 
   useEffect(() => {
     if (status === "idle") {
       dispatch(loadFood("BEST_FOOD"));
     }
   }, [status, dispatch]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const collectionRef = doc(db, email || "email", "shoppingCart");
+        await setDoc(collectionRef, { shoppingCart });
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, [shoppingCart, email]);
 
   return (
     <>
@@ -31,7 +48,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="products" element={<Products />} />
           <Route path="shoping-cart" element={<ShopingCart />} />
-          <Route path="login" element={<Login/>} />
+          <Route path="login" element={<Login />} />
           <Route path="signup" element={<Login isSignUp={true} />} />
           <Route path="profile" element={<Profile />} />
         </Route>

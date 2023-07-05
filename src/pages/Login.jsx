@@ -90,7 +90,6 @@ export const Login = ({ isSignUp = false }) => {
     }
   };
 
-  console.log("re");
   return (
     <Box
       sx={{
