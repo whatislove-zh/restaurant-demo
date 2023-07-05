@@ -39,12 +39,12 @@ export const Modal = () => {
         }}
       >
         <Typography sx={{ color: "white", px: "20px", my: "50px" }}>
-          Чтобы добавить товар в корзину, Вам нужно{" "}
+          To add a product to the cart you need to{" "}
           <Link
             to="/signup"
             style={{ textDecoration: "none", color: "rgb(62, 62, 255)" }}
           >
-            Sign Up
+            Register
           </Link>
         </Typography>
       </Box>

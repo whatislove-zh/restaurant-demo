@@ -68,7 +68,7 @@ export const Controls = () => {
         <Select value={sortValue} onChange={handleSortChange} label="Sort by:">
           <MenuItem value={"low"}>Price: Low to Hight</MenuItem>
           <MenuItem value={"hight"}>Price: Hight to Low</MenuItem>
-          <MenuItem value={"review"}>Avg. Custumer Review</MenuItem>
+          <MenuItem value={"review"}>Avg. Customer Review</MenuItem>
         </Select>
       </FormControl>
     </Box>

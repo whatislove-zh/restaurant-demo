@@ -1,18 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import axios from "axios";
 import * as api from "./apiConfig";
-import { bestFoodReduser } from "./features/getFoods/getFoodsSlice";
+import { bestFoodReducer } from "./features/getFoods/getFoodsSlice";
 import { modalReducer } from "./features/modalShow/modalSlice";
-import { shopingCartReducer } from "./features/shopingCart/shopingCartSlice";
+import { shoppingCartReducer } from "./features/shopingCart/shopingCartSlice";
 import { controlsReducer } from "./features/sortingRules/rulesSlice";
-import { userReduser } from "./features/user/userSlice";
+import { userReducer } from "./features/user/userSlice";
 
 export const store = configureStore({
   reducer: {
-    bestFood: bestFoodReduser,
-    shopingCart: shopingCartReducer,
+    bestFood: bestFoodReducer,
+    shoppingCart: shoppingCartReducer,
     controls: controlsReducer,
-    user: userReduser,
+    user: userReducer,
     modal: modalReducer,
   },
   devTools: true,

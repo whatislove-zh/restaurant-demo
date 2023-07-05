@@ -10,7 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
 import { removeItem } from "../store/features/shopingCart/shopingCartSlice";
 
-export const ShopingCartCard = (props) => {
+export const ShoppingCartCard = (props) => {
   const { name, price, img, dsc, id } = props.item;
 
   const dispatch = useDispatch();

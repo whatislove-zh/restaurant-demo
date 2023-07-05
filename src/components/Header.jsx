@@ -27,7 +27,7 @@ export const Header = () => {
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Link
-            to="shoping-cart"
+            to="shopping-cart"
             style={{ textDecoration: "none", padding: "5px" }}
           >
             <ShoppingCartIcon sx={{ color: "black", mx: "10px" }} />

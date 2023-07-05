@@ -32,7 +32,7 @@ const userSlice = createSlice({
 });
 
 export const { setUser, removeUser } = userSlice.actions;
-export const userReduser = userSlice.reducer;
+export const userReducer = userSlice.reducer;
 
 //selectors
 

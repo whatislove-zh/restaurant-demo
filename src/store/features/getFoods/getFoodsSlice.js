@@ -35,7 +35,7 @@ const getFoodSlice = createSlice({
   },
 });
 
-export const bestFoodReduser = getFoodSlice.reducer;
+export const bestFoodReducer = getFoodSlice.reducer;
 
 //selectors
 export const selectBestFoodInfo = (state) => ({

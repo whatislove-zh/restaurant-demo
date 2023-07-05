@@ -9,7 +9,7 @@ import {
 import { Layout } from "./components/Layout";
 import { Home } from "./pages/Home";
 import { Products } from "./pages/Products";
-import { ShopingCart } from "./pages/ShopingCart";
+import { ShoppingCart } from "./pages/ShopingCart";
 import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
 import { Profile } from "./pages/Profile";
@@ -21,7 +21,7 @@ import { userInfo } from "./store/features/user/userSlice";
 function App() {
   const { status } = useSelector(selectBestFoodInfo);
   const dispatch = useDispatch();
-  const shoppingCart = useSelector((state) => state.shopingCart.cartList);
+  const shoppingCart = useSelector((state) => state.shoppingCart.cartList);
   const { email } = useSelector(userInfo);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="products" element={<Products />} />
-          <Route path="shoping-cart" element={<ShopingCart />} />
+          <Route path="shopping-cart" element={<ShoppingCart />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Login isSignUp={true} />} />
           <Route path="profile" element={<Profile />} />

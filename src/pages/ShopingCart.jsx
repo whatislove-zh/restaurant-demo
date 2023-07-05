@@ -1,7 +1,7 @@
 import { Typography, Box, Button, Backdrop } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { ShopingCartCard } from "../components/ShopingCartCard";
+import { ShoppingCartCard } from "../components/ShopingCartCard";
 import { Link, useNavigate } from "react-router-dom";
 import { userInfo } from "../store/features/user/userSlice";
 import { clearCart } from "../store/features/shopingCart/shopingCartSlice";
@@ -9,7 +9,7 @@ import { clearCart } from "../store/features/shopingCart/shopingCartSlice";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
 
-export const ShopingCart = () => {
+export const ShoppingCart = () => {
   const [open, setOpen] = useState(false);
   const [documentData, setDocumentData] = useState({});
   const [shoppingCart, setShoppingCart] = useState([]);
@@ -50,7 +50,7 @@ export const ShopingCart = () => {
   useEffect(() => {
     getData();
     // eslint-disable-next-line
-  }, []);
+  }, [open]);
 
   useEffect(() => {
     setShoppingCart(documentData.shoppingCart);
@@ -67,7 +67,7 @@ export const ShopingCart = () => {
       ) : (
         <>
           {shoppingCart.map((item) => (
-            <ShopingCartCard key={item.id} item={item} />
+            <ShoppingCartCard key={item.id} item={item} />
           ))}
           <Box sx={{ display: "flex", justifyContent: "flex-end", my: "30px" }}>
             <Typography variant="h5">
