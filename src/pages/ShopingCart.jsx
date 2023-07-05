@@ -6,8 +6,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { userInfo } from "../store/features/user/userSlice";
 import { clearCart } from "../store/features/shopingCart/shopingCartSlice";
 
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase.js";
+
 export const ShopingCart = () => {
   const [open, setOpen] = useState(false);
+  const [documentData, setDocumentData] = useState({});
+  const [shoppingCart, setShoppingCart] = useState([]);
+  const { email } = useSelector(userInfo);
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -27,22 +34,45 @@ export const ShopingCart = () => {
 
   const dispatch = useDispatch();
 
-  const shopingCart = useSelector((state) => state.shopingCart.cartList);
+  const getData = async () => {
+    const docRef = doc(db, email, "shoppingCart");
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      setDocumentData(docSnap.data());
+      console.log("Document data:", docSnap.data());
+    } else {
+      setDocumentData([]);
+      console.log("No such document!");
+    }
+  };
+
+  useEffect(() => {
+    getData();
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    setShoppingCart(documentData.shoppingCart);
+  }, [documentData]);
+
+  console.log(shoppingCart);
+
   return (
     <>
-      {shopingCart.length === 0 ? (
+      {shoppingCart?.length === 0 || shoppingCart === undefined ? (
         <Typography variant="h3" align="center">
           Your cart is empty
         </Typography>
       ) : (
         <>
-          {shopingCart.map((item) => (
+          {shoppingCart.map((item) => (
             <ShopingCartCard key={item.id} item={item} />
           ))}
           <Box sx={{ display: "flex", justifyContent: "flex-end", my: "30px" }}>
             <Typography variant="h5">
               Total{" "}
-              {shopingCart.reduce((acc, currentItem) => {
+              {shoppingCart.reduce((acc, currentItem) => {
                 return acc + Number(currentItem.price);
               }, 0)}{" "}
               $

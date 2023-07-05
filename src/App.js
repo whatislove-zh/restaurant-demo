@@ -21,7 +21,7 @@ import { userInfo } from "./store/features/user/userSlice";
 function App() {
   const { status } = useSelector(selectBestFoodInfo);
   const dispatch = useDispatch();
-  const shopingCart = useSelector((state) => state.shopingCart.cartList);
+  const shoppingCart = useSelector((state) => state.shopingCart.cartList);
   const { email } = useSelector(userInfo);
 
   useEffect(() => {
@@ -33,13 +33,13 @@ function App() {
   useEffect(() => {
     (async () => {
       try {
-        const collectionRef = doc(db, email, "shopingCart");
-        await setDoc(collectionRef, { shopingCart });
+        const collectionRef = doc(db, email || "email", "shoppingCart");
+        await setDoc(collectionRef, { shoppingCart });
       } catch (err) {
         console.log(err);
       }
     })();
-  }, [shopingCart, email]);
+  }, [shoppingCart, email]);
 
   return (
     <>
