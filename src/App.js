@@ -24,6 +24,8 @@ function App() {
   const shoppingCart = useSelector((state) => state.shoppingCart.cartList);
   const { email } = useSelector(userInfo);
 
+  //console.log(email);
+
   useEffect(() => {
     if (status === "idle") {
       dispatch(loadFood("BEST_FOOD"));
@@ -32,11 +34,13 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      try {
-        const collectionRef = doc(db, email || "email", "shoppingCart");
-        await setDoc(collectionRef, { shoppingCart });
-      } catch (err) {
-        console.log(err);
+      if (email) {
+        try {
+          const collectionRef = doc(db, email, "shoppingCart");
+          await setDoc(collectionRef, { shoppingCart });
+        } catch (err) {
+          console.log(err);
+        }
       }
     })();
   }, [shoppingCart, email]);

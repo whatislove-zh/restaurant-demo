@@ -14,6 +14,7 @@ export const ShoppingCart = () => {
   const [documentData, setDocumentData] = useState({});
   const [shoppingCart, setShoppingCart] = useState([]);
   const { email } = useSelector(userInfo);
+  const shoppingCartList = useSelector((state) => state.shoppingCart.cartList);
 
   const handleClose = () => {
     setOpen(false);
@@ -50,13 +51,11 @@ export const ShoppingCart = () => {
   useEffect(() => {
     getData();
     // eslint-disable-next-line
-  }, [open]);
+  }, [open, shoppingCartList]);
 
   useEffect(() => {
     setShoppingCart(documentData.shoppingCart);
   }, [documentData]);
-
-  console.log(shoppingCart);
 
   return (
     <>
