@@ -10,6 +10,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { setUser, userInfo } from "../store/features/user/userSlice";
 import { useForm } from "react-hook-form";
 
+const testUser = {
+  email: "test@test.test",
+  password: "testtest",
+};
+
 export const Login = ({ isSignUp = false }) => {
   const {
     register,
@@ -164,6 +169,10 @@ export const Login = ({ isSignUp = false }) => {
           </Link>
         </Typography>
       )}
+
+      <Typography sx={{ mt: "50px" }}>
+        Test User: {JSON.stringify(testUser)}
+      </Typography>
     </Box>
   );
 };
