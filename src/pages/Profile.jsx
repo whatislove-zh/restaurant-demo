@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeUser, userInfo } from "../store/features/user/userSlice";
+import { getAuth, signOut } from "firebase/auth";
 
 const headImg = "https://source.unsplash.com/random";
 
@@ -18,11 +19,24 @@ export const Profile = () => {
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
-    dispatch(removeUser());
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        dispatch(removeUser());
+      })
+      .catch((error) => {
+        console.log("An error happened.");
+      });
   };
 
   return (
-    <Box sx={{display:"flex", justifyContent:"center", flexDirection:"column"}} >
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
       <Paper
         sx={{
           height: 350,
@@ -49,13 +63,13 @@ export const Profile = () => {
           <Typography variant="h6">{email}</Typography>
         </Box>
       </Paper>
-          <Button
-            sx={{ mx: "auto", my: "30px" }}
-            variant="outlined"
-            onClick={logoutHandler}
-          >
-            Logout
-          </Button>
+      <Button
+        sx={{ mx: "auto", my: "30px" }}
+        variant="outlined"
+        onClick={logoutHandler}
+      >
+        Logout
+      </Button>
     </Box>
   );
 };

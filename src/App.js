@@ -26,7 +26,6 @@ function App() {
   const shoppingCart = useSelector((state) => state.shoppingCart.cartList);
   const { email } = useSelector(userInfo);
 
-  //console.log(email);
 
   useEffect(() => {
     if (status === "idle") {
@@ -50,7 +49,7 @@ function App() {
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log(user)
+
       const currentUser = {
         email: user.email,
         id: user.uid
