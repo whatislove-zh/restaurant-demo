@@ -19,7 +19,6 @@ export const Profile = () => {
 
   const logoutHandler = () => {
     dispatch(removeUser());
-    localStorage.removeItem("user");
   };
 
   return (

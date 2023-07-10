@@ -51,16 +51,6 @@ export const Login = ({ isSignUp = false }) => {
             setUser({
               email: user.email,
               id: user.uid,
-              token: user.accessToken,
-            })
-          );
-
-          localStorage.setItem(
-            "user",
-            JSON.stringify({
-              email: user.email,
-              id: user.uid,
-              token: user.accessToken,
             })
           );
           navigate("/profile");
@@ -75,18 +65,10 @@ export const Login = ({ isSignUp = false }) => {
             setUser({
               email: user.email,
               id: user.uid,
-              token: user.accessToken,
             })
           );
 
-          localStorage.setItem(
-            "user",
-            JSON.stringify({
-              email: user.email,
-              id: user.uid,
-              token: user.accessToken,
-            })
-          );
+          
           navigate("/profile");
         })
         .catch((err) => {
