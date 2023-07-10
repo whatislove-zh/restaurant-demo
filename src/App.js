@@ -16,7 +16,9 @@ import { Profile } from "./pages/Profile";
 
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "./firebase";
-import { userInfo } from "./store/features/user/userSlice";
+import { setUser, userInfo } from "./store/features/user/userSlice";
+
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function App() {
   const { status } = useSelector(selectBestFoodInfo);
@@ -24,7 +26,6 @@ function App() {
   const shoppingCart = useSelector((state) => state.shoppingCart.cartList);
   const { email } = useSelector(userInfo);
 
-  //console.log(email);
 
   useEffect(() => {
     if (status === "idle") {
@@ -44,6 +45,22 @@ function App() {
       }
     })();
   }, [shoppingCart, email]);
+  /////////////////////////////////////////////////////////////////////////
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+
+      const currentUser = {
+        email: user.email,
+        id: user.uid
+      }
+      dispatch(setUser(currentUser))
+    } else {
+      console.log("no user")
+    }
+  });
+
+  /////////////////////////////////////////////////////////
 
   return (
     <>
