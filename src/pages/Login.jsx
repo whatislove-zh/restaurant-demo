@@ -3,12 +3,16 @@ import {
   signInWithEmailAndPassword,
   getAuth,
   createUserWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setUser, userInfo } from "../store/features/user/userSlice";
 import { useForm } from "react-hook-form";
+
+import GoogleIcon from "@mui/icons-material/Google";
 
 const testUser = {
   email: "test@test.test",
@@ -67,14 +71,27 @@ export const Login = ({ isSignUp = false }) => {
               id: user.uid,
             })
           );
-
-          
           navigate("/profile");
         })
         .catch((err) => {
           setAuthError(err.message);
         });
     }
+  };
+
+  const googleAuth = () => {
+    const auth = getAuth();
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        setUser(user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log("click");
   };
 
   return (
@@ -134,6 +151,15 @@ export const Login = ({ isSignUp = false }) => {
         <Button variant="outlined" type="submit" disabled={!isValid}>
           {isSignUp ? "Sign Up" : "Login"}
         </Button>
+      </Box>
+
+      <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <Typography>Or you can Login with</Typography>
+        <GoogleIcon
+          onClick={googleAuth}
+          fontSize="large"
+          sx={{ color: "#0F9D58", cursor: "pointer" }}
+        />
       </Box>
 
       {isSignUp ? (

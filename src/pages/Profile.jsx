@@ -59,7 +59,7 @@ export const Profile = () => {
             width: "280px",
           }}
         >
-          <Avatar sx={{ width: "100px", height: "100px" }} src="userAvatar" />
+          <Avatar sx={{ width: "100px", height: "100px" }} src={null} />
           <Typography variant="h6">{email}</Typography>
         </Box>
       </Paper>
