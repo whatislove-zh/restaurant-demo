@@ -40,8 +40,8 @@ export const ShoppingCart = () => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
+      console.log("Document data cart 44:", docSnap.data());
       setDocumentData(docSnap.data());
-      console.log("Document data:", docSnap.data());
     } else {
       setDocumentData([]);
       console.log("No such document!");
@@ -51,7 +51,7 @@ export const ShoppingCart = () => {
   useEffect(() => {
     getData();
     // eslint-disable-next-line
-  }, [shoppingCartList]);
+  }, [shoppingCartList, open]);
 
   useEffect(() => {
     setShoppingCart(documentData.shoppingCart);
