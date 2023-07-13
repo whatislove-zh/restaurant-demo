@@ -6,15 +6,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { userInfo } from "../store/features/user/userSlice";
 import { clearCart } from "../store/features/shopingCart/shopingCartSlice";
 
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase.js";
 
 export const ShoppingCart = () => {
   const [open, setOpen] = useState(false);
-  const [documentData, setDocumentData] = useState({});
-  const [shoppingCart, setShoppingCart] = useState([]);
-  const { email } = useSelector(userInfo);
-  const shoppingCartList = useSelector((state) => state.shoppingCart.cartList);
+  const shoppingCart = useSelector((state) => state.shoppingCart.cartList);
 
   const handleClose = () => {
     setOpen(false);
@@ -35,27 +30,7 @@ export const ShoppingCart = () => {
 
   const dispatch = useDispatch();
 
-  const getData = async () => {
-    const docRef = doc(db, email, "shoppingCart");
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      console.log("Document data cart 44:", docSnap.data());
-      setDocumentData(docSnap.data());
-    } else {
-      setDocumentData([]);
-      console.log("No such document!");
-    }
-  };
-
-  useEffect(() => {
-    getData();
-    // eslint-disable-next-line
-  }, [shoppingCartList, open]);
-
-  useEffect(() => {
-    setShoppingCart(documentData.shoppingCart);
-  }, [documentData]);
+  
 
   return (
     <>
