@@ -23,12 +23,17 @@ export const FoodCard = ({ item }) => {
 
   const dispatch = useDispatch();
 
+  const shoppingCart = useSelector((state) => state.shoppingCart.cartList);
+
   const addToCart = () => {
-    if (isAuth) {
-      dispatch(addProduct(item));
-      setOpen(true);
-    } else {
-      dispatch(setModal("flex"));
+    const isProductInCart = shoppingCart.find((el) => el.id === item.id);
+    if (!isProductInCart) {
+      if (isAuth) {
+        dispatch(addProduct(item));
+        setOpen(true);
+      } else {
+        dispatch(setModal("flex"));
+      }
     }
   };
 
