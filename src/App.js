@@ -26,7 +26,6 @@ function App() {
   const shoppingCart = useSelector((state) => state.shoppingCart.cartList);
   const { email } = useSelector(userInfo);
 
-
   useEffect(() => {
     if (status === "idle") {
       dispatch(loadFood("BEST_FOOD"));
@@ -44,19 +43,19 @@ function App() {
         }
       }
     })();
-  }, [shoppingCart, email]);
+    // eslint-disable-next-line
+  }, [shoppingCart]);
   /////////////////////////////////////////////////////////////////////////
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user) {
-
       const currentUser = {
         email: user.email,
-        id: user.uid
-      }
-      dispatch(setUser(currentUser))
+        id: user.uid,
+      };
+      dispatch(setUser(currentUser));
     } else {
-      console.log("no user")
+      console.log("no user");
     }
   });
 

@@ -51,7 +51,7 @@ export const ShoppingCart = () => {
   useEffect(() => {
     getData();
     // eslint-disable-next-line
-  }, [open, shoppingCartList]);
+  }, [shoppingCartList]);
 
   useEffect(() => {
     setShoppingCart(documentData.shoppingCart);
