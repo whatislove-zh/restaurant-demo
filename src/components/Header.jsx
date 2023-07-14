@@ -2,53 +2,69 @@ import {
   AppBar,
   Box,
   IconButton,
-  Button,
   Typography,
   Toolbar,
+  useMediaQuery,
+  Container,
+  SwipeableDrawer,
 } from "@mui/material";
 
 import { Link } from "react-router-dom";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useSelector } from "react-redux";
-import { userInfo } from "../store/features/user/userSlice";
+import Navigation from "./Navigation";
+import MenuIcon from "@mui/icons-material/Menu";
+import BurgerMenu from "./BurgerMenu";
+import { useState } from "react";
 
 export const Header = () => {
-  const { isAuth } = useSelector(userInfo);
+  const mobileWidth = useMediaQuery("(max-width:769px)");
+  const [asideOpen, setAsideOpen] = useState(false);
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setAsideOpen(open);
+  };
 
   return (
-    <AppBar position="static" sx={{ background: "none", mb: "30px" }}>
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Box>
-          <Link to="/">
-            <IconButton sx={{ padding: "10px" }}>
-              <Typography>Logo</Typography>
-            </IconButton>
-          </Link>
-        </Box>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Link
-            to="shopping-cart"
-            style={{ textDecoration: "none", padding: "5px" }}
-          >
-            <ShoppingCartIcon sx={{ color: "black", mx: "10px" }} />
-          </Link>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Button>Home</Button>
-          </Link>
-          <Link to="/products" style={{ textDecoration: "none" }}>
-            <Button>Products</Button>
-          </Link>
-          {isAuth ? (
-            <Link to="/profile" style={{ textDecoration: "none" }}>
-              <Button>Profile</Button>
-            </Link>
-          ) : (
-            <Link to="/signup" style={{ textDecoration: "none" }}>
-              <Button>Sign Up</Button>
-            </Link>
-          )}
-        </Box>
-      </Toolbar>
-    </AppBar>
+    <header style={{ transition: "all 0.5s ease" }}>
+      
+      <Container>
+        <AppBar position="static" sx={{ background: "none", mb: "30px" }}>
+          <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box>
+              <Link to="/">
+                <IconButton sx={{ padding: "10px" }}>
+                  <Typography>Logo</Typography>
+                </IconButton>
+              </Link>
+            </Box>
+            {mobileWidth ? (
+              <MenuIcon
+                onClick={toggleDrawer(true)}
+                fontSize="large"
+                sx={{ color: "black", cursor: "pointer" }}
+              />
+            ) : (
+              <Navigation />
+            )}
+          </Toolbar>
+        </AppBar>
+      </Container>
+      <>
+        <SwipeableDrawer
+          anchor={"right"}
+          open={asideOpen}
+          onClose={toggleDrawer(false)}
+          onOpen={toggleDrawer(true)}
+        >
+          <BurgerMenu closeMenu={toggleDrawer} />
+        </SwipeableDrawer>
+      </>
+    </header>
   );
 };

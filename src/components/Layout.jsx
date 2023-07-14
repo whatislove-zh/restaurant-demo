@@ -8,8 +8,8 @@ export const Layout = () => {
   return (
     <>
       <Modal />
+      <Header />
       <Container>
-        <Header />
         <Box sx={{ minHeight: "75vh" }}>
           <Outlet />
         </Box>
