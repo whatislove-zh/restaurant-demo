@@ -14,6 +14,11 @@ import { useForm } from "react-hook-form";
 
 import GoogleIcon from "@mui/icons-material/Google";
 
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase.js";
+
+import { addProduct } from "../store/features/shopingCart/shopingCartSlice";
+
 const testUser = {
   email: "test@test.test",
   password: "testtest",
@@ -51,6 +56,7 @@ export const Login = ({ isSignUp = false }) => {
     if (isSignUp === false) {
       signInWithEmailAndPassword(auth, email, password)
         .then(({ user }) => {
+          getCartInfo(user.email);
           dispatch(
             setUser({
               email: user.email,
@@ -65,6 +71,7 @@ export const Login = ({ isSignUp = false }) => {
     } else {
       createUserWithEmailAndPassword(auth, email, password)
         .then(({ user }) => {
+          getCartInfo(user.email);
           dispatch(
             setUser({
               email: user.email,
@@ -85,13 +92,27 @@ export const Login = ({ isSignUp = false }) => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
-       
-        setUser(user);
+        getCartInfo(user.email);
       })
       .catch((err) => {
         console.log(err);
       });
-    
+  };
+
+  const getCartInfo = async (email) => {
+    const collectionRef = doc(db, email, "shoppingCart");
+    const docSnap = await getDoc(collectionRef);
+
+    if (docSnap.exists()) {
+      console.log("Login 105: Document data:", docSnap.data());
+      const data = docSnap.data();
+
+      data.shoppingCart.forEach((element) => {
+        dispatch(addProduct(element));
+      });
+    } else {
+      console.log("No such document!");
+    }
   };
 
   return (
