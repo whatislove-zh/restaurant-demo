@@ -50,7 +50,7 @@ export const Header = () => {
                 sx={{ color: "black", cursor: "pointer" }}
               />
             ) : (
-              <Navigation />
+              <Navigation closeMenu={toggleDrawer} />
             )}
           </Toolbar>
         </AppBar>

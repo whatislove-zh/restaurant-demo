@@ -1,4 +1,10 @@
-import { TextField, Box, Button, Typography } from "@mui/material";
+import {
+  TextField,
+  Box,
+  Button,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import {
   signInWithEmailAndPassword,
   getAuth,
@@ -11,12 +17,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { setUser, userInfo } from "../store/features/user/userSlice";
 import { useForm } from "react-hook-form";
-
 import GoogleIcon from "@mui/icons-material/Google";
-
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase.js";
-
 import { addProduct } from "../store/features/shopingCart/shopingCartSlice";
 
 const testUser = {
@@ -34,23 +37,21 @@ export const Login = ({ isSignUp = false }) => {
     mode: "onBlur",
   });
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const [authError, setAuthError] = useState(null);
   const { isAuth } = useSelector(userInfo);
-
   const navigate = useNavigate();
-
   useEffect(() => {
     if (isAuth) {
       navigate("/profile");
     }
   }, [isAuth, navigate]);
-
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const mobileWidth = useMediaQuery("(max-width:769px)");
+  const formWidth = mobileWidth ? "100%" : "50%";
+  const [authError, setAuthError] = useState(null);
   const dispatch = useDispatch();
 
   const loginHelper = (data) => {
     const { email, password } = data;
-
     const auth = getAuth();
 
     if (isSignUp === false) {
@@ -106,7 +107,6 @@ export const Login = ({ isSignUp = false }) => {
     if (docSnap.exists()) {
       console.log("Login 105: Document data:", docSnap.data());
       const data = docSnap.data();
-
       data.shoppingCart.forEach((element) => {
         dispatch(addProduct(element));
       });
@@ -132,7 +132,7 @@ export const Login = ({ isSignUp = false }) => {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          width: "50%",
+          width: formWidth,
           margin: "25px",
         }}
       >
@@ -199,9 +199,13 @@ export const Login = ({ isSignUp = false }) => {
         </Typography>
       )}
 
-      <Typography sx={{ mt: "50px" }}>
-        Test User: {JSON.stringify(testUser)}
-      </Typography>
+      <Box sx={{ mt: "50px", padding:"20px", display:"flex", gap:"20px" }}>
+        <Typography>Test User:</Typography>
+        <Box>
+          <Typography>Login: {testUser.email}</Typography>
+          <Typography>Password: {testUser.password}</Typography>
+        </Box>
+      </Box>
     </Box>
   );
 };
