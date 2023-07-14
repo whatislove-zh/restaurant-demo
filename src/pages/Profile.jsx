@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { removeUser, userInfo } from "../store/features/user/userSlice";
 import { getAuth, signOut } from "firebase/auth";
+import { clearCart } from "../store/features/shopingCart/shopingCartSlice";
 
 const headImg = "https://source.unsplash.com/random";
 
@@ -23,6 +24,7 @@ export const Profile = () => {
     signOut(auth)
       .then(() => {
         dispatch(removeUser());
+        dispatch(clearCart)
       })
       .catch((error) => {
         console.log("An error happened.");
