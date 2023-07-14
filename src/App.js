@@ -43,10 +43,8 @@ function App() {
           
           if (!checkAuth) {
             if (docSnap.exists()) {
-              console.log("App 44: Document data:", docSnap.data());
               const data = docSnap.data();
-              console.log(data);
-
+              
               data.shoppingCart.forEach((element) => {
                 dispatch(addProduct(element));
               });

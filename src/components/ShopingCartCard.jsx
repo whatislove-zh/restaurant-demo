@@ -5,6 +5,7 @@ import {
   IconButton,
   Typography,
   Box,
+  useMediaQuery,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
@@ -12,6 +13,11 @@ import { removeItem } from "../store/features/shopingCart/shopingCartSlice";
 
 export const ShoppingCartCard = (props) => {
   const { name, price, img, dsc, id } = props.item;
+  const mobileWidth = useMediaQuery("(max-width:769px)");
+  const direction = mobileWidth ? "column" : "row";
+  const imgMaxWidth = mobileWidth ? "none" : "280px";
+  const imgHeight = mobileWidth ? "200px" : "150px";
+  
 
   const dispatch = useDispatch();
 
@@ -21,13 +27,13 @@ export const ShoppingCartCard = (props) => {
 
   return (
     <>
-      <Card sx={{ display: "flex", my: "20px" }}>
+      <Card sx={{ display: "flex", my: "20px", flexDirection: direction }}>
         <CardMedia
           component="img"
           alt={name}
-          height="150px"
+          height={imgHeight}
           image={img}
-          sx={{ cursor: "pointer", maxWidth: "280px" }}
+          sx={{ cursor: "pointer", maxWidth:imgMaxWidth }}
         />
         <CardContent
           sx={{
