@@ -136,7 +136,8 @@ export const Login = ({ isSignUp = false }) => {
           margin: "25px",
         }}
       >
-        {authError && <Typography>{authError}</Typography>}
+        <Typography variant="h3">{!isSignUp ? "Login here" : "SignUp here"}</Typography>
+        {authError && <Typography sx={{color:"red"}} >{authError}</Typography>}
 
         <TextField
           sx={{ m: "15px" }}
@@ -174,13 +175,24 @@ export const Login = ({ isSignUp = false }) => {
         </Button>
       </Box>
 
-      <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
-        <Typography>Or you can Login with</Typography>
-        <GoogleIcon
-          onClick={googleAuth}
-          fontSize="large"
-          sx={{ color: "#0F9D58", cursor: "pointer" }}
-        />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent:"center",
+          gap: "20px",
+          mb:"20px"
+        }}
+      >
+        <Typography>Or</Typography>
+        <Button variant="outlined" onClick={googleAuth}>
+          Login with
+          <GoogleIcon
+            fontSize="large"
+            sx={{ color: "#0F9D58", ml:"15px" }}
+          />
+        </Button>
       </Box>
 
       {isSignUp ? (
@@ -199,7 +211,7 @@ export const Login = ({ isSignUp = false }) => {
         </Typography>
       )}
 
-      <Box sx={{ mt: "50px", padding:"20px", display:"flex", gap:"20px" }}>
+      <Box sx={{ mt: "50px", padding: "20px", display: "flex", gap: "20px" }}>
         <Typography>Test User:</Typography>
         <Box>
           <Typography>Login: {testUser.email}</Typography>
