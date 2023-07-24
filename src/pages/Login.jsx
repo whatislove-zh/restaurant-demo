@@ -136,7 +136,8 @@ export const Login = ({ isSignUp = false }) => {
           margin: "25px",
         }}
       >
-        {authError && <Typography>{authError}</Typography>}
+        <Typography variant="h3">{!isSignUp ? "Login here" : "SignUp here"}</Typography>
+        {authError && <Typography sx={{color:"red"}} >{authError}</Typography>}
 
         <TextField
           sx={{ m: "15px" }}
